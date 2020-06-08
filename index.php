@@ -1,12 +1,16 @@
 <?php
+
+use function Team\all as teamAll;
+
 require ('./configs/config.php');
 require ('./utils/dbaccess.php');
 require('models/team.php');
+require('models/match.php');
 $pdo = getConnection();
 
 $matches = [];
 $standings = [];
-$teams = all($pdo);
+$teams = teamAll($pdo);
 
 function getEmptyStatsArray()
 {
