@@ -1,9 +1,12 @@
 <?php
-define('TODAY', (new DateTime('now', new DateTimeZone('Europe/Brussels')))->format('M jS, Y'));
-define('FILE_PATH', 'matches.csv');
+require ('./configs/config.php');
+require ('./utils/dbaccess.php');
+require('models/team.php');
+$pdo = getConnection();
+
 $matches = [];
 $standings = [];
-$teams = [];
+$teams = all($pdo);
 
 function getEmptyStatsArray()
 {
@@ -74,8 +77,5 @@ uasort($standings, function ($a, $b) {
     }
     return $a['points'] > $b['points'] ? -1 : 1;
 });
-
-$teams = array_keys($standings);
-sort($teams);
 
 require('scores.view.php');
