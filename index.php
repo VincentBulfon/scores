@@ -1,16 +1,18 @@
 <?php
 
-use function Team\all as teamAll;
+use function Team\all as allTeams;
+use function Match\allWithTeams as allMatchesWithTeams;
+use function Match\allWithTeamsGrouped as allWithTeamsGrouped;
 
-require ('./configs/config.php');
-require ('./utils/dbaccess.php');
+require('./configs/config.php');
+require('./utils/dbaccess.php');
 require('models/team.php');
 require('models/match.php');
 $pdo = getConnection();
 
-$matches = [];
 $standings = [];
-$teams = teamAll($pdo);
+$teams = allTeams($pdo);
+$matches = allWithTeamsGrouped(allMatchesWithTeams($pdo));
 
 function getEmptyStatsArray()
 {
@@ -26,16 +28,9 @@ function getEmptyStatsArray()
     ];
 }
 
-//ouvre le fichier
-$handle = fopen(FILE_PATH, 'r');
-//récupère la première ligne
-$headers = fgetcsv($handle, 1000, ",");
-//ouvre le fichier et récupère la ligne, tant que line est égal à qqch la fonction s'exécute de nouveau
-while ($line = fgetcsv($handle, 1000, ",")) {
-    $match = array_combine($headers, $line);
-    $matches[] = $match;
-    $homeTeam = $match['home-team'];
-    $awayTeam = $match['away-team'];
+foreach ($matches as $match) {
+    $homeTeam = $match->home_team;
+    $awayTeam = $match->away_team;
     //si la clé "hometeam" n'existe pas dans le tableau des "standings" (classement) on créer un tableau vide qu'on assigne a la clé hometeam dans standings
     if (!array_key_exists($homeTeam, $standings)) {
         $standings[$homeTeam] = getEmptyStatsArray();
@@ -49,13 +44,13 @@ while ($line = fgetcsv($handle, 1000, ",")) {
     $standings[$awayTeam]['games']++;
 
     //si égalité on ajoute un point pour chaque équipe, ainsi qu'une égalité au compteur de chacune d'entre elles
-    if ($match['home-team-goals'] === $match['away-team-goals']) {
+    if ($match->home_team_goals === $match->away_team_goals) {
         $standings[$homeTeam]['points']++;
         $standings[$awayTeam]['points']++;
         $standings[$homeTeam]['draws']++;
         $standings[$awayTeam]['draws']++;
         //si hometeam à gagné on ajoute un point à celle ci ainsi qu'une victoire et on ajoute une défaite à la team adverse
-    } elseif ($match['home-team-goals'] > $match['away-team-goals']) {
+    } elseif ($match->home_team_goals > $match->away_team_goals) {
         $standings[$homeTeam]['points'] += 3;
         $standings[$homeTeam]['wins']++;
         $standings[$awayTeam]['losses']++;
@@ -66,14 +61,16 @@ while ($line = fgetcsv($handle, 1000, ",")) {
         $standings[$homeTeam]['losses']++;
     }
     //on ajoute les goals à hometeam et awayteam pour garder le calssement à jour
-    $standings[$homeTeam]['GF'] += $match['home-team-goals'];
-    $standings[$homeTeam]['GA'] += $match['away-team-goals'];
-    $standings[$awayTeam]['GF'] += $match['away-team-goals'];
-    $standings[$awayTeam]['GA'] += $match['home-team-goals'];
+    $standings[$homeTeam]['GF'] += $match->home_team_goals;
+    $standings[$homeTeam]['GA'] += $match->away_team_goals;
+    $standings[$awayTeam]['GF'] += $match->away_team_goals;
+    $standings[$awayTeam]['GA'] += $match->home_team_goals;
     $standings[$homeTeam]['GD'] = $standings[$homeTeam]['GF'] - $standings[$homeTeam]['GA'];
     $standings[$awayTeam]['GD'] = $standings[$awayTeam]['GF'] - $standings[$awayTeam]['GA'];
 
+
 }
+
 
 uasort($standings, function ($a, $b) {
     if ($a['points'] === $b['points']) {
