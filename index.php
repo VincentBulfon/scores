@@ -8,25 +8,13 @@ require('./configs/config.php');
 require('./utils/dbaccess.php');
 require('models/team.php');
 require('models/match.php');
+require('utils/standings.php');
 $pdo = getConnection();
 
 $standings = [];
 $teams = allTeams($pdo);
 $matches = allWithTeamsGrouped(allMatchesWithTeams($pdo));
 
-function getEmptyStatsArray()
-{
-    return [
-        'games' => 0,
-        'points' => 0,
-        'wins' => 0,
-        'losses' => 0,
-        'draws' => 0,
-        'GF' => 0,
-        'GA' => 0,
-        'GD' => 0,
-    ];
-}
 
 foreach ($matches as $match) {
     $homeTeam = $match->home_team;
