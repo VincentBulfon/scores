@@ -1,6 +1,6 @@
 <?php
 
-namespace Team;
+namespace Models\Team;
 
 function all(\PDO $connection): array
 {

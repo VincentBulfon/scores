@@ -1,9 +1,10 @@
 <?php
 
-use function Team\all as allTeams;
-use function Match\allWithTeams as allMatchesWithTeams;
-use function Match\allWithTeamsGrouped as allWithTeamsGrouped;
-use function Match\save as saveMatch;
+use function Models\Team\all as allTeams;
+use function Models\Match\allWithTeamsGrouped as allWithTeamsGrouped;
+use function Models\Match\save as saveMatch;
+use function Models\Match\allWithTeams as allMatchesWithTeams;
+use function Controllers\Match\Store as storeMatch;
 
 require('vendor/autoload.php');
 
@@ -12,9 +13,9 @@ require('./utils/dbaccess.php');
 require('models/team.php');
 require('models/match.php');
 require('utils/standings.php');
+require('controllers/match.php');
 
 $pdo = getConnection();
-
 
 /*
  * tt les requêtes sont caractérisées par :
@@ -26,23 +27,7 @@ $pdo = getConnection();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action']) && isset($_POST['resource'])) {
         if ($_POST['action'] === 'store' && $_POST['resource'] === 'match') {
-            $matchDate = $_POST['match-date'];
-            $homeTeam = $_POST['home-team'];
-            $awayTeam = $_POST['away-team'];
-            $homeTeamGoals = $_POST['home-team-goals'];
-            $awayTeamGoals = $_POST['away-team-goals'];
-
-            $match = [
-                'date' => $matchDate,
-                'home-team' => $homeTeam,
-                'home-team-goals' => $homeTeamGoals,
-                'away-team-goals' => $awayTeamGoals,
-                'away-team' => $awayTeam
-            ];
-
-            saveMatch($pdo, $match);
-            header('Location: index.php');
-            exit;
+           storeMatch($pdo);
         }
     }
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -52,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $standings = [];
         $teams = allTeams($pdo);
         $matches = allWithTeamsGrouped(allMatchesWithTeams($pdo));
-
 
         foreach ($matches as $match) {
             $homeTeam = $match->home_team;

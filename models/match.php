@@ -1,8 +1,6 @@
 <?php
 
-namespace Match;
-
-use Cassandra\Date;
+namespace Models\Match;
 
 function all(\PDO $connection): array
 {
