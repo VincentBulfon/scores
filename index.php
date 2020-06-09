@@ -115,12 +115,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-function appendArrayToCSV(array $array, string $csvFile)
-{
-    $handle = fopen($csvFile, 'a');
-    fputcsv($handle, $array);
-    fclose($handle);
-}
-
 
 require('views/scores.view.php');
