@@ -4,7 +4,8 @@ namespace Controllers\Match;
 
 use function Models\Match\save as saveMatch;
 
-function store(\PDO $pdo){
+function store(\PDO $pdo)
+{
 
     $matchDate = $_POST['match-date'];
     $homeTeam = $_POST['home-team'];

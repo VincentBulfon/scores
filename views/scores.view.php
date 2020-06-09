@@ -45,34 +45,34 @@
 </section>
 <section>
     <h2>Match joués au <?= TODAY ?></h2>
-   <?php if(count($matches)): ?>
-       <table>
-           <thead>
-           <tr>
-               <th>Date</th>
-               <th>Équipe visitée</th>
-               <th>Goals de l'équipe visitée</th>
-               <th>Goals de l'équipe visiteuse</th>
-               <th>Équipe visiteuse</th>
-           </tr>
-           </thead>
-           <tbody>
+    <?php if (count($matches)): ?>
+        <table>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Équipe visitée</th>
+                <th>Goals de l'équipe visitée</th>
+                <th>Goals de l'équipe visiteuse</th>
+                <th>Équipe visiteuse</th>
+            </tr>
+            </thead>
+            <tbody>
 
 
-           <?php foreach ($matches as $match): ?>
-               <tr>
+            <?php foreach ($matches as $match): ?>
+                <tr>
 
-                   <td><?= ($match->match_date)->format('M l jS, Y') ?></td>
-                   <td><?= $match->home_team ?></td>
-                   <td><?= $match->home_team_goals ?></td>
-                   <td><?= $match->away_team_goals ?></td>
-                   <td><?= $match->away_team ?></td>
-               </tr>
-           <?php endforeach; ?>
-           </tbody>
-       </table>
+                    <td><?= ($match->match_date)->format('M l jS, Y') ?></td>
+                    <td><?= $match->home_team ?></td>
+                    <td><?= $match->home_team_goals ?></td>
+                    <td><?= $match->away_team_goals ?></td>
+                    <td><?= $match->away_team ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
     <?php else: ?>
-    <p>Aucun match n'a été joué à ce jour</p>
+        <p>Aucun match n'a été joué à ce jour</p>
     <?php endif; ?>
 </section>
 <section>
@@ -84,7 +84,7 @@
         <label for="home-team">Équipe à domicile</label>
         <select name="home-team" id="home-team">
             <?php foreach ($teams as $team): ?>
-                <option value="<?= $team->id ?>"><?= $team->name ?> [<?= $team->slug?>]</option>
+                <option value="<?= $team->id ?>"><?= $team->name ?> [<?= $team->slug ?>]</option>
             <?php endforeach; ?>
         </select>
         <label for="home-team-unlisted">Équipe non listée&nbsp;?</label>
@@ -96,7 +96,7 @@
         <label for="away-team">Équipe visiteuse</label>
         <select name="away-team" id="away-team">
             <?php foreach ($teams as $team): ?>
-                <option value="<?= $team->id ?>"><?= $team->name ?> [<?= $team->slug?></option>
+                <option value="<?= $team->id ?>"><?= $team->name ?> [<?= $team->slug ?>]</option>
             <?php endforeach; ?>
         </select>
         <label for="away-team-unlisted">Équipe non listée&nbsp;?</label>

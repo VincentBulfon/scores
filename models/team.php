@@ -31,3 +31,15 @@ function findByName(\PDO $connection, string $name)
 
     return $pdoSt->fetch();
 }
+
+
+function save(\PDO $connection, array $team): bool
+{
+    try {
+        $insertTeamRequest = 'INSERT INTO teams(`name`, `slug`) VALUES (:name, :slug)';
+        $pdoSt = $connection->prepare($insertTeamRequest);
+        $pdoSt->execute([':name' => $team['name'], ':slug' => $team['slug']]);
+    }catch(\PDOException $e){
+        die($e->getMessage());
+    }
+}
