@@ -1,0 +1,12 @@
+{
+    "name": "dice/scores",
+    "require": {
+        "nesbot/carbon": "^2.35"
+    },
+    "authors": [
+        {
+            "name": "vincent",
+            "email": "vincent.bulfon@gmail.com"
+        }
+    ]
+}
