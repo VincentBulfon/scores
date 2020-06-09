@@ -44,32 +44,36 @@
     </table>
 </section>
 <section>
-    <h2>Games played at <?= TODAY ?></h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Date</th>
-            <th>Home Team</th>
-            <th>Home Team Goals</th>
-            <th>Away Team Goals</th>
-            <th>Away Team</th>
-        </tr>
-        </thead>
-        <tbody>
+    <h2>Match joués au <?= TODAY ?></h2>
+   <?php if(count($matches)): ?>
+       <table>
+           <thead>
+           <tr>
+               <th>Date</th>
+               <th>Équipe visitée</th>
+               <th>Goals de l'équipe visitée</th>
+               <th>Goals de l'équipe visiteuse</th>
+               <th>Équipe visiteuse</th>
+           </tr>
+           </thead>
+           <tbody>
 
 
-        <?php foreach ($matches as $match): ?>
-            <tr>
+           <?php foreach ($matches as $match): ?>
+               <tr>
 
-                <td><?= ($match->match_date)->format('M l jS, Y') ?></td>
-                <td><?= $match->home_team ?></td>
-                <td><?= $match->home_team_goals ?></td>
-                <td><?= $match->away_team_goals ?></td>
-                <td><?= $match->away_team ?></td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+                   <td><?= ($match->match_date)->format('M l jS, Y') ?></td>
+                   <td><?= $match->home_team ?></td>
+                   <td><?= $match->home_team_goals ?></td>
+                   <td><?= $match->away_team_goals ?></td>
+                   <td><?= $match->away_team ?></td>
+               </tr>
+           <?php endforeach; ?>
+           </tbody>
+       </table>
+    <?php else: ?>
+    <p>Aucun match n'a été joué à ce jour</p>
+    <?php endif; ?>
 </section>
 <section>
     <h2>Encodage d’un nouveau match</h2>
