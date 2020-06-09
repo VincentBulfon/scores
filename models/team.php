@@ -20,3 +20,14 @@ function find(\PDO $connection, string $id): \stdClass
     return $pdoSt->fetch();
 }
 
+
+function findByName(\PDO $connection, string $name)
+{
+    var_dump($name);
+    die();
+    $teamRequest = 'SELECT * FROM teams WHERE name = :name';
+    $pdoSt = $connection->prepare($teamRequest);
+    $pdoSt = $pdoSt->execute([':name' => $name]);
+
+    return $pdoSt->fetch();
+}
