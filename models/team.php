@@ -33,7 +33,7 @@ function findByName(\PDO $connection, string $name)
 }
 
 
-function save(\PDO $connection, array $team): bool
+function save(\PDO $connection, array $team)
 {
     try {
         $insertTeamRequest = 'INSERT INTO teams(`name`, `slug`) VALUES (:name, :slug)';
