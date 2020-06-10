@@ -7,7 +7,7 @@ namespace Controllers;
 use Models\Team;
 
 class Match{
-    static function store()
+    function store()
     {
         $matchModel = new \Models\Match();
         $matchDate = $_POST['match-date'];
@@ -29,7 +29,7 @@ class Match{
         exit;
     }
 
-    static function create()
+    function create()
     {
         $teamModel = new Team();
         $view = 'views/match/create.php';

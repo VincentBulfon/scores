@@ -14,7 +14,7 @@ $controllerName = 'Controllers\\' . $route['controller'];
 $controller = new $controllerName;
 
 
-$data = call_user_func([$controllerName, $route['callback']]);
+$data = call_user_func([$controller, $route['callback']]);
 //extrait les données d'un tableau et donne comme nom de variable les clé du tableau
 extract($data, EXTR_OVERWRITE);
 
