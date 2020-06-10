@@ -2,12 +2,13 @@
 
 namespace Controllers;
 
+use Models\Model;
 use function Models\Team\save;
 
-class Team{
+class Team extends Model {
 
 //add link form to add new team from match form #TODO
-    function store(\PDO $pdo)
+    function store()
     {
         //Début de la validation
         //empty(trim($_POST['name'])) peut être remplacé par trim($_POST['name']) === ''
@@ -27,7 +28,7 @@ class Team{
             //compact créer un tableau en associant les variables dans son scope au clé du même noms celle définie dans la fonction.
             $teamModel = new \Models\Team();
             $team = compact('name', 'slug');
-            $teamModel->save($pdo, $team);
+            $teamModel->save($team);
             header('Location: index.php');
             exit;
         }

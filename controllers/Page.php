@@ -11,13 +11,13 @@ require('./utils/standings.php');
 
 class Page
 {
-    public static function dashboard(\PDO $pdo)
+    public static function dashboard()
     {
         $matchModel = new Match();
         $teamModel = new Team();
         $standings = [];
-        $teams = $teamModel->all($pdo);
-        $matches = $matchModel->allWithTeamsGrouped($matchModel->allWithTeams($pdo));
+        $teams = $teamModel->all();
+        $matches = $matchModel->allWithTeamsGrouped($matchModel->allWithTeams());
         $view = 'views/dashboard.php';
 
         foreach ($matches as $match) {

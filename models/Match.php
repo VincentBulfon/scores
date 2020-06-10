@@ -2,29 +2,29 @@
 
 namespace Models;
 
-class Match
+class Match extends Model
 {
-    function all(\PDO $connection): array
+    function all(): array
     {
         $matchRequest = 'SELECT * FROM matches ORDER BY date';
-        $pdoSt = $connection->query($matchRequest);
+        $pdoSt = $this->pdo->query($matchRequest);
 
         return $pdoSt->fetchAll();
     }
 
-    function find(\PDO $connection, $id): \stdClass
+    function find($id): \stdClass
     {
         $matchRequest = 'SELECT * FROM matches WHERE id = :id';
-        $pdoSt = $connection->prepare($matchRequest);
+        $pdoSt = $this->pdo->prepare($matchRequest);
         $pdoSt = $pdoSt->execute(['id' => $id]);
 
         return $pdoSt->fetch();
     }
 
-    function allWithTeams(\PDO $connection): array
+    function allWithTeams(): array
     {
         $matchesInfosRequest = 'SELECT * FROM matches JOIN participations p on matches.id = p.match_id JOIN teams t on p.team_id = t.id ORDER BY match_id, is_home';
-        $pdoSt = $connection->query($matchesInfosRequest);
+        $pdoSt = $this->pdo->query($matchesInfosRequest);
 
         return $pdoSt->fetchAll();
     }
@@ -52,14 +52,14 @@ class Match
         return $matchesWithTeams;
     }
 
-    function save(\PDO $connection, array $match)
+    function save(array $match)
     {
         $insertMatchRequest = 'INSERT INTO matches(`date`, `slug`) VALUES (:date, :slug)';
-        $pdoSt = $connection->prepare($insertMatchRequest);
+        $pdoSt = $this->pdo->prepare($insertMatchRequest);
         $pdoSt = $pdoSt->execute([':date' => $match['date'], ':slug' => '']);
-        $id = $connection->lastInsertId();
+        $id = $this->pdo->lastInsertId();
         $insertParticipationRequest = 'INSERT INTO participations(`match_id`, `team_id`, `goals`, `is_home`) VALUES (:match_id, :team_id, :goals, :is_home)';
-        $pdoSt = $connection->prepare($insertParticipationRequest);
+        $pdoSt = $this->pdo->prepare($insertParticipationRequest);
         var_dump($match);
         $pdoSt->execute([
             ':match_id' => $id,
