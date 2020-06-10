@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-require('vendor/autoload.php');
+require('./vendor/autoload.php');
 
-require('configs/config.php');
-require('utils/dbaccess.php');
+require('./configs/config.php');
+require('./utils/dbaccess.php');
 
 
 

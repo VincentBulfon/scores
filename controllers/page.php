@@ -2,16 +2,23 @@
 
 namespace Controllers\Page;
 
-require('Models/team.php');
-require('Models/match.php');
-require('utils/standings.php');
+
+
+use Models\Match;
+use Models\Team;
+
+require('./models/Team.php');
+require('./models/Match.php');
+require('./utils/standings.php');
+
 
 function dashboard(\PDO $pdo)
 {
-
+    $matchModel = new Match();
+    $teamModel = new Team();
     $standings = [];
-    $teams = \Models\Team\all($pdo);
-    $matches = \Models\Match\allWithTeamsGrouped(\Models\Match\allWithTeams($pdo));
+    $teams = $teamModel->all($pdo);
+    $matches = $matchModel->allWithTeamsGrouped($matchModel->allWithTeams($pdo));
     $view = 'views/dashboard.php';
 
     foreach ($matches as $match) {
