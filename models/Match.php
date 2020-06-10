@@ -12,9 +12,9 @@ class Match
         return $pdoSt->fetchAll();
     }
 
-    function find(\PDO $connection): \stdClass
+    function find(\PDO $connection, $id): \stdClass
     {
-        $matchRequest = 'SELECT FROM matches WHERE id = :id';
+        $matchRequest = 'SELECT * FROM matches WHERE id = :id';
         $pdoSt = $connection->prepare($matchRequest);
         $pdoSt = $pdoSt->execute(['id' => $id]);
 

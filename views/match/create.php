@@ -23,8 +23,8 @@
                 <option value="<?= $team->id ?>"><?= $team->name ?> [<?= $team->slug ?>]</option>
             <?php endforeach; ?>
         </select>
-        <label for="home-team-unlisted">Équipe non listée&nbsp;?</label>
-        <input type="text" name="home-team-unlisted" id="home-team-unlisted">
+        <label for="home-team-goals">Goals de l'équipe visitée</label>
+        <input type="text" name="home-team-goals" id="home-team-goals">
         <br>
         <label for="away-team">Équipe visiteuse</label>
         <select name="away-team" id="away-team">

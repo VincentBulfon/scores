@@ -7,12 +7,15 @@ require('./configs/config.php');
 require('./utils/dbaccess.php');
 
 
-
 $route = require('utils/router.php');
 
-require('controllers/' . $route['controller-file'] . '.php');
+//fait office de use déclaré en inline
+$controllerName = 'Controllers\\' . $route['controller'];
 
-$data = call_user_func($route['callback'], getConnection());
+$controller = new $controllerName;
+
+
+$data = call_user_func([$controllerName, $route['callback']], getConnection());
 //extrait les données d'un tableau et donne comme nom de variable les clé du tableau
 extract($data, EXTR_OVERWRITE);
 
