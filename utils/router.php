@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 $routes = require ('configs/routes.php');
 
 $method = $_SERVER['REQUEST_METHOD']; //GET ou POST

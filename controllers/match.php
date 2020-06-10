@@ -5,6 +5,7 @@ namespace Controllers\Match;
 use function Models\Match\save;
 
 require('models/match.php');
+require('models/team.php');
 
 function store(\PDO $pdo)
 {
@@ -28,9 +29,9 @@ function store(\PDO $pdo)
     exit;
 }
 
-function create()
+function create(\PDO $pdo)
 {
     $view = 'views/match/create.php';
-
-    return compact('view');
+    $teams = \Models\Team\all($pdo);
+    return compact('view', 'teams');
 }
