@@ -45,5 +45,12 @@ return [
         'resource'=>'login-form',
         'controller'=>'Login',
         'callback'=>'create'
+    ],
+    [
+        'method'=>'GET',
+        'action'=>'create',
+        'resource'=>'register-form',
+        'controller'=>'Register',
+        'callback'=>'create'
     ]
 ];
