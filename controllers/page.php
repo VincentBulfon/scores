@@ -12,7 +12,7 @@ function dashboard(\PDO $pdo)
     $standings = [];
     $teams = \Models\Team\all($pdo);
     $matches = \Models\Match\allWithTeamsGrouped(\Models\Match\allWithTeams($pdo));
-    $view = 'views/scores.view.php';
+    $view = 'views/dashboard.php';
 
     foreach ($matches as $match) {
         $homeTeam = $match->home_team;

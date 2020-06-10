@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $routes = require ('configs/routes.php');
 
 $method = $_SERVER['REQUEST_METHOD']; //GET ou POST
@@ -18,4 +20,5 @@ if(!$route){
     exit();
 }
 
+//retourne le tableau route réinitialisé
 return reset($route);
