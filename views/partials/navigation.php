@@ -3,6 +3,10 @@
     <a href="?action=create&resource=match">Ajouter un match</a>
 </div>
 <div>
-    <a href="?action=view&resource=login-form">Se connecter</a>
-    <a href="?action=view&resource=register-form">M'enregister</a>
+    <form action="index.php" method="post">
+        <input type="submit" value="Se déconnecter">
+        <input type="hidden" name="action" value="logout">
+        <input type="hidden" name="resource" value="login">
+    </form>
+
 </div>

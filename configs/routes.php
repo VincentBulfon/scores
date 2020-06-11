@@ -52,5 +52,19 @@ return [
         'resource'=>'register-form',
         'controller'=>'Register',
         'callback'=>'create'
+    ],
+    [
+        'method'=>'POST',
+        'action'=>'check',
+        'resource'=>'login',
+        'controller'=>'Login',
+        'callback'=>'check'
+    ],
+    [
+        'method'=>'POST',
+        'action'=>'logout',
+        'resource'=>'login',
+        'controller'=>'Login',
+        'callback'=>'delete'
     ]
 ];

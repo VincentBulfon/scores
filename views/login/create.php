@@ -32,7 +32,7 @@
         </div>
     <?php endif; ?>
     <input type="hidden" name="action" value="check">
-    <input type="hidden" name="resource" value="login-form">
+    <input type="hidden" name="resource" value="login">
     <input type="submit" value="M'identifier">
 </form>
 </body>

@@ -8,7 +8,11 @@
 <div>
     <a href="index.php">Premier League 2020</a>
 </div>
-<?php include('views/partials/navigation.php') ?>
+<?php if (isset($_SESSION['user'])): ?>
+    <?php include('views/partials/navigation.php') ?>
+<?php else: ?>
+    <?php include('views/partials/admin-links.php') ?>
+<?php endif; ?>
 <?php if (count($standings)): ?>
     <div>
         <h1>Classement du championnat</h1>
@@ -48,38 +52,38 @@
         </table>
     </div>
 
-<section>
-    <h2>Match joués au <?= TODAY ?></h2>
-    <?php if (count($matches)): ?>
-        <table>
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Équipe visitée</th>
-                <th>Goals de l'équipe visitée</th>
-                <th>Goals de l'équipe visiteuse</th>
-                <th>Équipe visiteuse</th>
-            </tr>
-            </thead>
-            <tbody>
-
-
-            <?php foreach ($matches as $match): ?>
+    <section>
+        <h2>Match joués au <?= TODAY ?></h2>
+        <?php if (count($matches)): ?>
+            <table>
+                <thead>
                 <tr>
-
-                    <td><?= ($match->match_date)->format('M l jS, Y') ?></td>
-                    <td><?= $match->home_team ?></td>
-                    <td><?= $match->home_team_goals ?></td>
-                    <td><?= $match->away_team_goals ?></td>
-                    <td><?= $match->away_team ?></td>
+                    <th>Date</th>
+                    <th>Équipe visitée</th>
+                    <th>Goals de l'équipe visitée</th>
+                    <th>Goals de l'équipe visiteuse</th>
+                    <th>Équipe visiteuse</th>
                 </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>Aucun match n'a été joué à ce jour</p>
-    <?php endif; ?>
-</section>
+                </thead>
+                <tbody>
+
+
+                <?php foreach ($matches as $match): ?>
+                    <tr>
+
+                        <td><?= ($match->match_date)->format('M l jS, Y') ?></td>
+                        <td><?= $match->home_team ?></td>
+                        <td><?= $match->home_team_goals ?></td>
+                        <td><?= $match->away_team_goals ?></td>
+                        <td><?= $match->away_team ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>Aucun match n'a été joué à ce jour</p>
+        <?php endif; ?>
+    </section>
 <?php endif; ?>
 </body>
 </html>
