@@ -60,7 +60,6 @@ class Match extends Model
         $id = $this->pdo->lastInsertId();
         $insertParticipationRequest = 'INSERT INTO participations(`match_id`, `team_id`, `goals`, `is_home`) VALUES (:match_id, :team_id, :goals, :is_home)';
         $pdoSt = $this->pdo->prepare($insertParticipationRequest);
-        var_dump($match);
         $pdoSt->execute([
             ':match_id' => $id,
             ':team_id' => $match['home-team'],
