@@ -2,26 +2,17 @@
 
 namespace Models;
 
+use Carbon\Carbon;
+
 class Match extends Model
 {
-    function all(): array
-    {
-        $matchRequest = 'SELECT * FROM matches ORDER BY date';
-        $pdoSt = $this->pdo->query($matchRequest);
 
-        return $pdoSt->fetchAll();
-    }
+    protected $table = 'matches';
+    protected $findKey = 'id';
+    protected $order = 'date';
 
-    function find($id): \stdClass
-    {
-        $matchRequest = 'SELECT * FROM matches WHERE id = :id';
-        $pdoSt = $this->pdo->prepare($matchRequest);
-        $pdoSt = $pdoSt->execute(['id' => $id]);
 
-        return $pdoSt->fetch();
-    }
-
-    function allWithTeams(): array
+    public function allWithTeams(): array
     {
         $matchesInfosRequest = 'SELECT * FROM matches JOIN participations p on matches.id = p.match_id JOIN teams t on p.team_id = t.id ORDER BY match_id, is_home';
         $pdoSt = $this->pdo->query($matchesInfosRequest);
@@ -29,16 +20,14 @@ class Match extends Model
         return $pdoSt->fetchAll();
     }
 
-    function allWithTeamsGrouped(array $allWithTeams): array
+    public function allWithTeamsGrouped(array $allWithTeams): array
     {
         $matchesWithTeams = [];
         $m = null;
         foreach ($allWithTeams as $match) {
             if (!$match->is_home) {
                 $m = new \stdClass();
-                $d = new \DateTime();
-                //les parenthèses autour de int, sert à interpréter la valeur de match-date comme un entier
-                $d->setTimestamp(((int)$match->date) / 1000);
+                $d = Carbon::createFromFormat('Y-m-d', $match->date);
                 $m->match_date = $d;
                 $m->away_team = $match->name;
                 $m->away_team_goals = $match->goals;
@@ -52,7 +41,7 @@ class Match extends Model
         return $matchesWithTeams;
     }
 
-    function save(array $match)
+    public function save(array $match)
     {
         $insertMatchRequest = 'INSERT INTO matches(`date`, `slug`) VALUES (:date, :slug)';
         $pdoSt = $this->pdo->prepare($insertMatchRequest);

@@ -71,7 +71,7 @@
                 <?php foreach ($matches as $match): ?>
                     <tr>
 
-                        <td><?= ($match->match_date)->format('M l jS, Y') ?></td>
+                        <td><?= ($match->match_date)->locale('fr')->isoformat('dddd D MMMM YYYY') ?></td>
                         <td><?= $match->home_team ?></td>
                         <td><?= $match->home_team_goals ?></td>
                         <td><?= $match->away_team_goals ?></td>
