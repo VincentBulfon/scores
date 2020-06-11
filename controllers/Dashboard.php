@@ -26,10 +26,12 @@ class Dashboard
             //si la clé "hometeam" n'existe pas dans le tableau des "standings" (classement) on créer un tableau vide qu'on assigne a la clé hometeam dans standings
             if (!array_key_exists($homeTeam, $standings)) {
                 $standings[$homeTeam] = getEmptyStatsArray();
+                $standings[$homeTeam]['logo'] = $match->home_team_logo;
             }
             //la même chose mais avec away team
             if (!array_key_exists($awayTeam, $standings)) {
                 $standings[$awayTeam] = getEmptyStatsArray();
+                    $standings[$awayTeam]['logo'] = $match->away_team_logo;
             }
             //on ajoute un match joué à "hometeam"et un a "awayteam"
             $standings[$homeTeam]['games']++;

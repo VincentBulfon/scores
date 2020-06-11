@@ -1,7 +1,8 @@
 {
     "name": "dice/scores",
     "require": {
-        "nesbot/carbon": "^2.35"
+        "nesbot/carbon": "^2.35",
+        "intervention/image": "^2.5"
     },
     "authors": [
         {

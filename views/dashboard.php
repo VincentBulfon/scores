@@ -20,6 +20,7 @@
             <thead>
             <tr>
                 <td></td>
+                <th scope="col">Logo</th>
                 <th scope="col">Team</th>
                 <th scope="col">Games</th>
                 <th scope="col">Points</th>
@@ -36,6 +37,7 @@
             <?php foreach ($standings as $team => $teamStats): ?>
                 <tr>
                     <td><?= $i++; ?></td>
+                    <td><img src="<?= THUMBS.$teamStats['logo'] ?>" alt=""></td>
                     <th scope="row"><?= $team ?></th>
                     <td><?= $teamStats['games']; ?></td>
                     <td><?= $teamStats['points']; ?></td>
@@ -51,7 +53,7 @@
             </tbody>
         </table>
     </div>
-
+<?php endif; ?>
     <section>
         <h2>Match joués au <?= TODAY ?></h2>
         <?php if (count($matches)): ?>
@@ -84,6 +86,5 @@
             <p>Aucun match n'a été joué à ce jour</p>
         <?php endif; ?>
     </section>
-<?php endif; ?>
 </body>
 </html>

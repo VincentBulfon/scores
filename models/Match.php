@@ -31,13 +31,14 @@ class Match extends Model
                 $m->match_date = $d;
                 $m->away_team = $match->name;
                 $m->away_team_goals = $match->goals;
+                $m->away_team_logo = $match->file_name;
             } else {
                 $m->home_team = $match->name;
                 $m->home_team_goals = $match->goals;
+                $m->home_team_logo = $match->file_name;
                 $matchesWithTeams[] = $m;
             }
         }
-
         return $matchesWithTeams;
     }
 

@@ -12,7 +12,7 @@
     <a href="index.php">Premier League 2020</a>
 </div>
 <h1>Création d'une équipe</h1>
-<form action="index.php" method="post">
+<form action="index.php" method="post" enctype="multipart/form-data">
     <div>
         <label for="team">Nom de l'équipe :</label>
         <input type="text" name="name" id="team" value="<?= isset($_SESSION['old']['name']) ? $_SESSION['old']['name'] : '' ?>">
@@ -29,6 +29,16 @@
     <?php if (isset($_SESSION['errors']['slug'])): ?>
         <div>
             <p><?= $_SESSION['errors']['slug'] ?></p>
+        </div>
+    <?php endif; ?>
+    <div>
+        <input type="hidden" name="MAX_FILE_SIZE" value="32000000">
+        <label for="logo">Fournissez un Logo (png min 400px x 400px et max 1600px x 1600px)&nbsp;:</label>
+        <input type="file" name="logo" id="logo" >
+    </div>
+    <?php if (isset($_SESSION['errors']['logo'])): ?>
+        <div>
+            <p><?= $_SESSION['errors']['logo'] ?></p>
         </div>
     <?php endif; ?>
     <input type="hidden" name="action" value="store" id="">
